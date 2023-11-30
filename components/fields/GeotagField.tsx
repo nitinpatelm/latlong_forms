@@ -126,7 +126,7 @@ function FormComponent({
       }
     };
     getLocation();
-  }, []);
+  }, [location]);
 
   return (
     <Input
