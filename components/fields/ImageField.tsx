@@ -146,10 +146,11 @@ function FormComponent({
         setUploadedImagePath(res.data.image_path)
         setLoading(false)
         if (!submitValue) return;
-        const valid = ImageFieldElement.validate(element, uploadedImagePath ? uploadedImagePath : '');
+        const valid = ImageFieldElement.validate(element,res.data.image_path);
+        console.log(valid)
         setError(!valid);
         if (!valid) return;
-        submitValue(element.id, uploadedImagePath ? uploadedImagePath : '');
+        submitValue(element.id, res.data.image_path);
       }).catch(err => {
         setLoading(false)
       })
@@ -182,7 +183,7 @@ function FormComponent({
       {loading &&
         <div className="absolute inset-0 flex items-center justify-center bg-gray-300 bg-opacity-50">
         {/* Add your loading spinner or any loading indicator here */}
-          <ImSpinner3 />
+          <ImSpinner3 className="animate-spin"/>
         </div>
       }
       {!loading &&
