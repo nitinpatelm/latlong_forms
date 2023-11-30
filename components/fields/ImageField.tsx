@@ -30,6 +30,7 @@ import { BiCamera } from "react-icons/bi";
 import { LuSwitchCamera } from "react-icons/lu";
 import { cn } from "@/lib/utils";
 import { ImSpinner3 } from "react-icons/im";
+import { compressFile } from "@/lib/helper";
 
 const type: ElementsType = "Image";
 
@@ -137,7 +138,8 @@ function FormComponent({
     try {
       const selectedImage = e.target.files[0];
       if (!selectedImage) return;
-      const imageURL = URL.createObjectURL(selectedImage);
+      const imageCompressed = await compressFile(selectedImage)
+      const imageURL = URL.createObjectURL(imageCompressed);
       const imageAsPng = await convertToPng(imageURL);
       axios.post('https://latlong-demo-tool-api.latlong.in/demo/upload_image', {
         base64: imageAsPng,
@@ -205,7 +207,6 @@ function FormComponent({
 
     </div>
   </label>
-
 
   </div>
   </>
